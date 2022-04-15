@@ -13,10 +13,6 @@
  * limitations under the License.
  */
 
-/**
- * Query for WebXR support. If there's no support for the `immersive-ar` mode,
- * show an error.
- */
 (async function() {
   const isArSessionSupported =
       navigator.xr &&
@@ -39,9 +35,6 @@ class App {
    */
   activateXR = async () => {
     try {
-      /** Initialize a WebXR session using "immersive-ar". */
-      // this.xrSession = await navigator.xr.requestSession("immersive-ar");
-      /** Alternatively, initialize a WebXR session using extra required features. */
       this.xrSession = await navigator.xr.requestSession("immersive-ar", {
         requiredFeatures: ['hit-test', 'dom-overlay'],
         domOverlay: { root: document.body }
