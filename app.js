@@ -147,11 +147,7 @@ class App {
     }
   }
 
-  /**
-   * Initialize three.js specific rendering code, including a WebGLRenderer,
-   * a demo scene, and a camera for viewing the 3D content.
-   *
-   **/
+
   setupThreeJs() {
     /** To help with working with 3D on the web, we'll use three.js.
      * Set up the WebGLRenderer, which handles rendering to our session's base layer. */
@@ -163,18 +159,10 @@ class App {
     });
 
     this.renderer.autoClear = false;
-    // this.renderer.shadowMap.enabled = true;
-    // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-    /** Initialize our demo scene. */
-    // this.scene = DemoUtils.createCubeScene();
     this.scene = DemoUtils.createLitScene();
     this.reticle = new Reticle();
     this.scene.add(this.reticle);
 
-    /** We'll update the camera matrices directly from API, so
-     * disable matrix auto updates so three.js doesn't attempt
-     * to handle the matrices independently. */
     this.camera = new THREE.PerspectiveCamera();
     this.camera.matrixAutoUpdate = false;
   }
@@ -193,19 +181,6 @@ class App {
       // shadowMesh.position.y = clone.position.y;
     }
   }
-
-//  onSelect = () => {
-//      if (window.sunflower) {
-//        const clone = window.sunflower.clone();
-//        clone.position.copy(this.reticle.position);
-//        this.scene.add(clone)
-//
-//        // const shadowMesh = this.scene.children.find(c => c.name === 'shadowMesh');
-//        // shadowMesh.position.y = clone.position.y;
-//      }
-//    }
-
-
 }
 
 window.app = new App();
