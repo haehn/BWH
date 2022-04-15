@@ -162,17 +162,24 @@ class App {
   }
 
     //MY UNIQUE CODE
-
+const loader = new VTKLoader();
  
   /** Place a sunflower when the screen is tapped. */
   onSelect = () => {
     if (window.sunflower) {
-      const clone = window.sunflower.clone();
-      clone.position.copy(this.reticle.position);
-      this.scene.add(clone)
-
-      // const shadowMesh = this.scene.children.find(c => c.name === 'shadowMesh');
-      // shadowMesh.position.y = clone.position.y;
+      loader.load("./resources/rh.vtk", function (geometry) {
+					geometry.center();
+					geometry.computeVertexNormals();
+					console.log(geometry)
+					const material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
+					const mesh = new THREE.Mesh(geometry, material);
+					mesh.position.set( 0, 0, -2 ).applyMatrix4( controller.matrixWorld ); // position the mesh
+					mesh.quaternion.setFromRotationMatrix( controller.matrixWorld );
+					mesh.scale.multiplyScalar(0.002);
+					//Rotating mesh by 90 degree in X axis.
+					mesh.rotateX( -Math.PI / 2 );
+					scene.add( mesh );
+				});
     }
   }
 }
