@@ -12,8 +12,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//import {VTKLoader} from './loaders/VTKLoader.js';
 
+/**
+ * Query for WebXR support. If there's no support for the `immersive-ar` mode,
+ * show an error.
+ */
 (async function() {
   const isArSessionSupported =
       navigator.xr &&
@@ -36,6 +39,9 @@ class App {
    */
   activateXR = async () => {
     try {
+      /** Initialize a WebXR session using "immersive-ar". */
+      // this.xrSession = await navigator.xr.requestSession("immersive-ar");
+      /** Alternatively, initialize a WebXR session using extra required features. */
       this.xrSession = await navigator.xr.requestSession("immersive-ar", {
         requiredFeatures: ['hit-test', 'dom-overlay'],
         domOverlay: { root: document.body }
@@ -141,7 +147,11 @@ class App {
     }
   }
 
-
+  /**
+   * Initialize three.js specific rendering code, including a WebGLRenderer,
+   * a demo scene, and a camera for viewing the 3D content.
+   *
+   **/
   setupThreeJs() {
     /** To help with working with 3D on the web, we'll use three.js.
      * Set up the WebGLRenderer, which handles rendering to our session's base layer. */
@@ -153,39 +163,37 @@ class App {
     });
 
     this.renderer.autoClear = false;
+    // this.renderer.shadowMap.enabled = true;
+    // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    /** Initialize our demo scene. */
+    // this.scene = DemoUtils.createCubeScene();
     this.scene = DemoUtils.createLitScene();
     this.reticle = new Reticle();
     this.scene.add(this.reticle);
 
+    /** We'll update the camera matrices directly from API, so
+     * disable matrix auto updates so three.js doesn't attempt
+     * to handle the matrices independently. */
     this.camera = new THREE.PerspectiveCamera();
     this.camera.matrixAutoUpdate = false;
   }
 
     //MY UNIQUE CODE
-const loader = new VTKLoader();
- 
-//loader.load("./assets/brain_lefthemisphere.vtk", function (geometry) {
-//					geometry.center();
-//					geometry.computeVertexNormals();
-//					console.log(geometry)
-//					const material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
-//					const mesh = new THREE.Mesh(geometry, material);
-//					mesh.position.set( 0, 0, -2 ).applyMatrix4( controller.matrixWorld ); // position the mesh
-//					mesh.quaternion.setFromRotationMatrix( controller.matrixWorld );
-//					mesh.scale.multiplyScalar(0.002);
-//					//Rotating mesh by 90 degree in X axis.
-//					mesh.rotateX( -Math.PI / 2 );
-//					scene.add( mesh );
-//				});
 
+ 
   /** Place a sunflower when the screen is tapped. */
   onSelect = () => {
     if (window.sunflower) {
       const clone = window.sunflower.clone();
       clone.position.copy(this.reticle.position);
       this.scene.add(clone)
+
+      // const shadowMesh = this.scene.children.find(c => c.name === 'shadowMesh');
+      // shadowMesh.position.y = clone.position.y;
     }
   }
+
 }
 
 window.app = new App();
