@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {VTKLoader} from './loaders/VTKLoader.js';
+//import {VTKLoader} from './loaders/VTKLoader.js';
 
 (async function() {
   const isArSessionSupported =
@@ -164,19 +164,19 @@ class App {
     //MY UNIQUE CODE
 const loader = new VTKLoader();
  
-loader.load("./assets/brain_lefthemisphere.vtk", function (geometry) {
-					geometry.center();
-					geometry.computeVertexNormals();
-					console.log(geometry)
-					const material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
-					const mesh = new THREE.Mesh(geometry, material);
-					mesh.position.set( 0, 0, -2 ).applyMatrix4( controller.matrixWorld ); // position the mesh
-					mesh.quaternion.setFromRotationMatrix( controller.matrixWorld );
-					mesh.scale.multiplyScalar(0.002);
-					//Rotating mesh by 90 degree in X axis.
-					mesh.rotateX( -Math.PI / 2 );
-					scene.add( mesh );
-				});
+//loader.load("./assets/brain_lefthemisphere.vtk", function (geometry) {
+//					geometry.center();
+//					geometry.computeVertexNormals();
+//					console.log(geometry)
+//					const material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
+//					const mesh = new THREE.Mesh(geometry, material);
+//					mesh.position.set( 0, 0, -2 ).applyMatrix4( controller.matrixWorld ); // position the mesh
+//					mesh.quaternion.setFromRotationMatrix( controller.matrixWorld );
+//					mesh.scale.multiplyScalar(0.002);
+//					//Rotating mesh by 90 degree in X axis.
+//					mesh.rotateX( -Math.PI / 2 );
+//					scene.add( mesh );
+//				});
 
   /** Place a sunflower when the screen is tapped. */
   onSelect = () => {
