@@ -164,10 +164,7 @@ class App {
     //MY UNIQUE CODE
 const loader = new VTKLoader();
  
-  /** Place a sunflower when the screen is tapped. */
-  onSelect = () => {
-    if (window.sunflower) {
-      loader.load("./resources/rh.vtk", function (geometry) {
+loader.load("./assets/brain_lefthemisphere.vtk", function (geometry) {
 					geometry.center();
 					geometry.computeVertexNormals();
 					console.log(geometry)
@@ -180,6 +177,13 @@ const loader = new VTKLoader();
 					mesh.rotateX( -Math.PI / 2 );
 					scene.add( mesh );
 				});
+
+  /** Place a sunflower when the screen is tapped. */
+  onSelect = () => {
+    if (window.sunflower) {
+      const clone = window.sunflower.clone();
+      clone.position.copy(this.reticle.position);
+      this.scene.add(clone)
     }
   }
 }
