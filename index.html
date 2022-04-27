@@ -26,7 +26,6 @@
       animate();
 
       function init() {
-      const loader = new VTKLoader();
 
         container = document.createElement("div");
         document.body.appendChild(container);
@@ -82,16 +81,17 @@
 
       function onSelect() {
         if (reticle.visible) {
+        const loader = new VTKLoader();
         loader.load("./resources/brain.vtk", function (geometry) {
-		  const material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
-		  const mesh = new THREE.Mesh(geometry, material);
-		  //mesh.quaternion.setFromRotationMatrix( controller.matrixWorld );
-		  mesh.scale.multiplyScalar(1);
-		  //mesh.rotateX( -Math.PI / 2 );
-		  mesh.position.setFromMatrixPosition(reticle.matrix);
-          mesh.quaternion.setFromRotationMatrix(reticle.matrix);
-
-          scene.add(mesh);
+		const material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
+		const mesh = new THREE.Mesh(geometry, material);
+		//mesh.quaternion.setFromRotationMatrix( controller.matrixWorld );
+		mesh.scale.multiplyScalar(0.005);
+		//mesh.rotateX( -Math.PI / 2 );
+		mesh.position.setFromMatrixPosition(reticle.matrix);
+        mesh.quaternion.setFromRotationMatrix(reticle.matrix);
+        
+        scene.add(mesh);
           });
         }
       }
