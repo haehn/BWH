@@ -78,7 +78,8 @@
 
       }
 
-
+	
+       let counter=0;
       function onSelect() {
         if (reticle.visible) {
         const loader = new VTKLoader();
@@ -91,7 +92,10 @@
 		mesh.position.setFromMatrixPosition(reticle.matrix);
         mesh.quaternion.setFromRotationMatrix(reticle.matrix);
         
-        scene.add(mesh);
+		if(counter==0){
+       		 scene.add(mesh);
+		 counter=counter+1;
+		}
           });
         }
       }
