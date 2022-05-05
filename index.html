@@ -24,6 +24,16 @@
 
       init();
       animate();
+	
+	window.addEventListener('deviceorientation', handleOrientation);
+	// Logging phone coordinates
+      function handleOrientation(event) {
+        const alpha = event.alpha;
+        const beta = event.beta;
+        const gamma = event.gamma;
+
+        console.log("Alpha:", alpha, "Beta:", beta, "Gamma:",gamma);
+      }
 
       function init() {
 
